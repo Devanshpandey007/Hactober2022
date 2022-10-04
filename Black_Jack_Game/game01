@@ -1,0 +1,146 @@
+from time import sleep
+import random
+import game01_module
+print('''.------.            _     _            _    _            _    
+|A_  _ |.          | |   | |          | |  (_)          | |   
+|( \/ ).-----.     | |__ | | __ _  ___| | ___  __ _  ___| | __
+| \  /|K /\  |     | '_ \| |/ _` |/ __| |/ / |/ _` |/ __| |/ /
+|  \/ | /  \ |     | |_) | | (_| | (__|   <| | (_| | (__|   < 
+`-----| \  / |     |_.__/|_|\__,_|\___|_|\_\ |\__,_|\___|_|\_\\
+      |  \/ K|                            _/ |                
+      `------'                           |__/''')
+def computer():
+        L1 = ['A','K','Q',10,9,8,7,6,5,4,3,2]
+        r1 = random.choice(L1)
+        def changevalue(a):
+            if a=='K':
+                a=10
+                return a
+            elif a=='Q':
+                a=10
+                return a
+            elif a=='A':
+                a=11
+                return a
+            else:
+                a=a
+                return a
+        changevalue(r1)
+        print(f"Card which Computer already had is {r1}")
+        img = L1.index(r1)
+        print(game01_module.CARDS[img])
+        r1 = changevalue(r1)
+        sleep(3)
+        print(f"Card which Computer already had is {r1}")
+        list1 = []
+        list1.append(r1)
+        chance = random.randint(2,3)
+        #print("Chance =", chance)
+        list2=[]   
+        for i in range(chance-1):
+            sleep(3)
+            # a = input("try or stand")
+            # if a=="try":
+            x = random.choice(L1)
+            print(f"Card choosen in chance {i+1} is {x}")
+            card_index = L1.index(x)
+            print(game01_module.CARDS[card_index])
+            x = changevalue(x)
+            list2.append(x)
+            list = list1+list2
+            sleep(1)
+            print(f"Running Score Board = {list}")
+        #list = list1+list2
+        global total 
+        total = sum(list)
+        sleep(2)
+        print(f"score_board of computer is {list}")
+        #print(f"Total score of computer is {total}")
+def person():
+    global name
+    name = str(input("Enter player name: "))
+    L2 = ['A','K','Q',10,9,8,7,6,5,4,3,2]
+    r2 = random.choice(L2)
+    def changevalue(b):
+        if b=='K':
+            b=10
+            return b
+        elif b=='Q':
+            b=10
+            return b
+        elif b=='A':
+            b=11
+            return b
+        else:
+            b=b
+            return b
+    changevalue(r2)
+    print(f"Card which {name} already had is {r2}")
+    img2 = L2.index(r2)
+    print(game01_module.CARDS[img2])
+    r2 = changevalue(r2)
+    sleep(2)
+    list3 = []
+    list3.append(r2)
+    list4=[]   
+    while r2<21:
+        sleep(2)
+        b = input("try or stand: ").lower()
+        sleep(3)
+        if b=="try":
+            y = random.choice(L2)
+            print(f"Card randomly choosen in this turn is {y}")
+            card_index_2= L2.index(y)
+            print(game01_module.CARDS[card_index_2])
+            y = changevalue(y)
+            list4.append(y)
+            r2+=y
+            list_1 = list3+list4
+            sleep(2)
+            print(f"Running score board = {list_1}")
+        elif b=="stand":
+            list_1 = list3+list4
+            sleep(2)
+            print(f"Final score board = {list_1}")
+            break
+        else:
+            print("Error plz type 'try' or 'stand'")
+            continue
+    #list_1 = list3+list4
+    global total_1 
+    total_1 = sum(list_1)
+    sleep(2)
+    print(f"your score_board is {list_1}")
+    #print(f"total score of {name} is {total_1}")
+person()
+print("Now it's Computer Turn")
+sleep(5)
+computer()
+sleep(2)
+print(f"total score of {name} is {total_1}")
+sleep(1)
+print(f"Total score of computer is {total}")
+if total_1>21:
+    print(f"OOps! You Lost... Value is greater than 21")
+elif total>21:
+    print("Computer Lost... Vlue is greater than 21 ")
+elif total_1>total and total_1<=21:
+    print("Congratulation You won the game woohoooo.......")
+elif total>total_1 and total<=21:
+    print("OOPs! you Lost... Try Again ")
+print('''_____
+          .-'.  ':'-.
+        .''::: .:    '.
+       /   :::::'      \
+      ;.    ':' `       ;
+      |       '..       |
+      ; '      ::::.    ;
+       \       '::::   /
+        '.      :::  .'
+          '-.___'_.- ' 
+  ''')
+
+if total==21:
+  print("Computer Hit Black Jack")
+if total_1==21:
+  print(f"{name} you Hit Black Jack")
